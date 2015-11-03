@@ -86,7 +86,7 @@ class Site extends TerminusModel {
     $params   = array($tag => array('sites' => array($this->get('id'))));
     $response = TerminusCommand::simpleRequest(
       sprintf('organizations/%s/tags', $org),
-      array('method' => 'put', 'data' => $params)
+      array('method' => 'put', 'form_params' => $params)
     );
     return $response;
   }
@@ -169,12 +169,9 @@ class Site extends TerminusModel {
    * @return [Workflow] $workflow
    */
   public function createBranch($branch) {
-    $data     = array('refspec' => sprintf('refs/heads/%s', $branch));
-    $options  = array(
-      'body'    => json_encode($data),
-      'headers' => array('Content-type' => 'application/json')
-    );
-    $response = TerminusCommand::request(
+    $form_params = array('refspec' => sprintf('refs/heads/%s', $branch));
+    $options     = compact('form_params');
+    $response    = TerminusCommand::request(
       'sites',
       $this->get('id'),
       'code-branch',
@@ -534,11 +531,7 @@ class Site extends TerminusModel {
   public function updateServiceLevel($level) {
     $path     = 'service-level';
     $method   = 'PUT';
-    $data     = $level;
-    $options  = array(
-      'body' => json_encode($data),
-      'headers' => array('Content-type' => 'application/json')
-    );
+    $options  = array('form_params' => $level);
     $response = TerminusCommand::request(
       'sites',
       $this->get('id'),

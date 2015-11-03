@@ -35,6 +35,9 @@ env:
     - secure: "OqbgLy6Rn+NvhjpYygNZDWf6rj8sVejRZJBmssNi5fHRXopEtfIHids2FjSXZUVPs3ShqNuczo1jzgt7N3JHbcSaiedHlc7ONqDK0SyyOcsv1oKOR81bvYcL/KIoGiMRvkQI5IW01YWfSZlS0wgL2NYdJvYanCnSUUv6nNZAF7E="
 
 before_script:
+  - pecl install runkit
+  - echo "extension=runkit.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "runkit.internal_override=true" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ./scripts/prepare.sh
 
 script:
