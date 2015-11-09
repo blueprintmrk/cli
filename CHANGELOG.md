@@ -9,6 +9,7 @@ All notable changes to this project starting with the 0.6.0 release will be docu
 
 ### Changed
 - Cached sites lists are now keyed to UUID, preventing a previously logged-in user's list from interfering with the currently logged-in user. (#652)
+- Upgraded behavioral testing to Behat 3.0.x. (#66X)
 
 ### Fixed
 - Automatic version check disabled for testing. (#643)
