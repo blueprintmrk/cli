@@ -101,22 +101,13 @@ class BashFormatter implements OutputFormatterInterface {
   }
 
   /**
-   * Flattens a value for display
-   *
-   * @param [string] $output
+   * Flatten a value for display
+   * @param $value
    */
   private static function flattenValue($value) {
-    if (is_scalar($value)) {
-      return $value;
+    if (is_array($value) || is_object($value)) {
+      $value = join(BashFormatter::VALUE_SEPARATOR, (array)$value);
     }
-    $value  = (array)$value;
-    $output = array();
-
-    foreach ($value as $key => $val) {
-      $output[] = $key . ': ' . BashFormatter::flattenValue($val);
-    }
-    $output = '(' . implode(BashFormatter::VALUE_SEPARATOR, $output) . ')';
-    return $output;
+    return $value;
   }
-
 }
